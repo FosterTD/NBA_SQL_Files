@@ -11,7 +11,7 @@ GO
 -- Description:	Create backup tables
 -- =============================================
 ALTER PROCEDURE [dbo].[_sp_NBA_Daily_Update_RPT_Step1]
---new comment
+
 AS
 BEGIN
 
@@ -22,7 +22,7 @@ BEGIN
 
 DECLARE @date date
 SET @date = cast(getdate() as date)  
---'2022-11-25'
+
 IF OBJECT_ID('RPT.NBAGameDayMatchups') IS NOT NULL 
 BEGIN 
     DROP TABLE RPT.NBAGameDayMatchups 

@@ -11,15 +11,14 @@ GO
 -- Description:	Upload CSV file into landing table.  Make data transformations and upload data into Analytics shema.
 -- =============================================
 ALTER PROCEDURE [dbo].[_sp_NBA_Daily_Update_Step1b] 
-	-- Add the parameters for the stored procedure here
+
 
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	DECLARE @TABLE_NAME VARCHAR(MAX)
 	       ,@TEAM_TABLE_NAME VARCHAR(MAX)
@@ -59,24 +58,7 @@ BEGIN
 	SET @FULL_LANDING_TABLE_NAME = CONCAT(@LANDING_SCHEMA,@TABLE_NAME,@DATE)
 	SET @TEAM_FULL_LANDING_TABLE_NAME = CONCAT(@LANDING_SCHEMA,@TEAM_TABLE_NAME,@DATE)
 	SET @CREATE_TEAM_STATS_TABLE =
-							--'CREATE TABLE ' + @TEAM_FULL_LANDING_TABLE_NAME + '(
-							--[Index] INT NULL, 
-							--[Rk] INT NULL,
-							--[Team] [varchar](50) NULL,
-							--[Conf] [varchar](50) NULL,
-							--[Div] [varchar](50) NULL,
-							--[Wins] INT NULL,
-							--[Losses] INT NULL,
-							--[Win-Loss Percentage] [varchar](50) NULL,
-							--[Margin of Victory] INT NULL,
-							--[Offensive Rating] FLOAT NULL,
-							--[Defensive Rating] FLOAT NULL,
-							--[Net Rating] FLOAT NULL,
-							--[Adjusted Margin of Victory] FLOAT NULL,
-							--[Adjusted Offensive Rating] FLOAT NULL,
-							--[Adjusted Defensive Rating] FLOAT NULL,
-							--[Adjusted Net Rating] FLOAT NULL
-							--) ON [PRIMARY]'
+
 
 							'CREATE TABLE ' + @TEAM_FULL_LANDING_TABLE_NAME + '(
 							[Index] [varchar](50) NULL,
@@ -97,8 +79,6 @@ BEGIN
 							[Adjusted Net Rating] [varchar](50) NULL
 							) ON [PRIMARY]'
 
---select concat(@TEAM_TABLE_NAME,@CSV_FILE_DATE) , @TEAM_FULL_LANDING_TABLE_NAME
---C:\Users\hoost\NBA Python Scraper\NBATeamStats_02_Nov_2022.csv
 
 	SET @TEAM_UPLOAD_CSV = ' BULK INSERT ' + @TEAM_FULL_LANDING_TABLE_NAME +' 
 						FROM ''C:\Users\hoost\NBA Python Scraper\'+ concat(@TEAM_TABLE_NAME,@CSV_FILE_DATE) + '.csv''
@@ -109,28 +89,6 @@ BEGIN
 						)
 						'
 
---	SET @CREATE_TEAM_ANALYTICS_TABLE = 
---						'CREATE TABLE ' + concat(@ANALYTICS_SCHEMA,@TEAM_TABLE_NAME,'Final') + ' (
---							[Rk] INT NULL,
---							[Team] [varchar](50) NULL,
---							[Conf] [varchar](50) NULL,
---							[Div] [varchar](50) NULL,
---							[Wins] INT NULL,
---							[Losses] INT NULL,
---							[Win-Loss Percentage] [varchar](50) NULL,
---							[Margin of Victory] INT NULL,
---							[Offensive Rating] FLOAT NULL,
---							[Defensive Rating] FLOAT NULL,
---							[Net Rating] FLOAT NULL,
---							[Adjusted Margin of Victory] FLOAT NULL,
---							[Adjusted Offensive Rating] FLOAT NULL,
---							[Adjusted Defensive Rating] FLOAT NULL,
---							[Adjusted Net Rating] FLOAT NULL,
---							[Date] Date 
---						) ON [PRIMARY]'
-
-
---exec (@CREATE_TEAM_ANALYTICS_TABLE)
 
 
 	SET @INSERT_DATA_INTO_TEAM_ANALYTICS_TABLE = 

@@ -11,15 +11,14 @@ GO
 -- Description:	Upload CSV file into landing table.  Make data transformations and upload data into Analytics shema.
 -- =============================================
 ALTER PROCEDURE [dbo].[_sp_NBA_Daily_Update_Step1a] 
-	-- Add the parameters for the stored procedure here
+	
 
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+   
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	DECLARE @TABLE_NAME VARCHAR(MAX)
 	
@@ -98,41 +97,6 @@ BEGIN
 		' BEGIN UPDATE ' + @FULL_LANDING_TABLE_NAME  + ' 
 		  SET [Tm] = right([Tm],3)
 		  FROM ' + @FULL_LANDING_TABLE_NAME + ' END '
-
-	--SET @CREATE_ANALYTICS_TABLE = 
-	--					'CREATE TABLE ' + @FULL_ANALYTICS_TABLE_NAME + ' (
-	--						[Player] [varchar](50) NULL,
-	--						[Pos] [varchar](50) NULL,
-	--						[Age] [varchar](50) NULL,
-	--						[Tm] [varchar](50) NULL,
-	--						[Games] [varchar](50) NULL,
-	--						[Games Started] [varchar](50) NULL,
-	--						[Minutes Played] [varchar](50) NULL,
-	--						[Field Goals] [varchar](50) NULL,
-	--						[FGA] [varchar](50) NULL,
-	--						[Field Goal Percentage] [varchar](50) NULL,
-	--						[3-Point Field Goals] [varchar](50) NULL,
-	--						[3-Point Field Goal Attempts] [varchar](50) NULL,
-	--						[3-Point Field Goal Percentage] [varchar](50) NULL,
-	--						[2-Point Field Goals] [varchar](50) NULL,
-	--						[2-point Field Goal Attempts] [varchar](50) NULL,
-	--						[2-Point Field Goal Percentage] [varchar](50) NULL,
-	--						[Effective Field Goal Percentage] [varchar](50) NULL,
-	--						[Free Throws] [varchar](50) NULL,
-	--						[Free Throw Attempts] [varchar](50) NULL,
-	--						[Free Throw Percentage] [varchar](50) NULL,
-	--						[Offensive Rebounds] [varchar](50) NULL,
-	--						[Defensive Rebounds] [varchar](50) NULL,
-	--						[Total Rebounds] [varchar](50) NULL,
-	--						[Assists] [varchar](50) NULL,
-	--						[Steals] [varchar](50) NULL,
-	--						[Blocks] [varchar](50) NULL,
-	--						[Turnovers] [varchar](50) NULL,
-	--						[Personal Fouls] [varchar](50) NULL,
-	--						[Points] [varchar](50) NULL,
-	--						[Date] Date 
-	--					) ON [PRIMARY]'
-
 
 	SET @INSERT_DATA_INTO_ANALYTICS_TABLE = 
 	'BEGIN INSERT INTO ' + CONCAT(@ANALYTICS_SCHEMA,@TABLE_NAME) + '
@@ -236,13 +200,3 @@ EXEC sp_executesql @ApplicationsTableUpdateQuery
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 END
-/*
-
-(SELECT a.[name] 
-				FROM sys.Tables a
-				inner join (select max(create_date) as create_date from sys.Tables
-							where schema_id =1) b on a.[create_date] = b.[create_date]
-				WHERE schema_id =1)
-
-
-*/

@@ -11,15 +11,14 @@ GO
 -- Description:	Calculate daily stats by player
 -- =============================================
 ALTER PROCEDURE [dbo].[_sp_NBA_Daily_Update_Step3]
-	-- Add the parameters for the stored procedure here
+
 	
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+
 DECLARE @Game_Date AS DATE
 SET @Game_Date = cast(DATEADD(D,-1,GETDATE()) as date);
 
@@ -119,14 +118,5 @@ SET [Field Goal Percentage] = ISNULL ( ([Field Goals] / NULLIF([FGA],0) ),0)
 FROM [A].[NBAPlayerStats_Final] 
 WHERE Game_Date = @Game_Date
 
-/*
-ALTER TABLE [A].[NBAPlayerStats_Final]
-ADD Team_Id INT 
-
-UPDATE  [A].[NBAPlayerStats_Final]
-SET Team_Id = T.Team_Id
-FROM  [A].[NBAPlayerStats_Final] S
-inner JOIN [A].[NBATeam_Id] T ON T.Team_Abbreviation=S.Tm
-*/
 
 END

@@ -15,11 +15,10 @@ ALTER PROCEDURE [dbo].[_sp_NBA_Daily_Update_RPT_Step2]
 	
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 IF OBJECT_ID('RPT.NBAGameDayPlayerStats') IS NOT NULL 
